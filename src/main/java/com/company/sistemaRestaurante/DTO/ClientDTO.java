@@ -1,7 +1,16 @@
 package com.company.sistemaRestaurante.DTO;
 
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+
+
 public class ClientDTO {
 
+	@Autowired
+    private MessageSource messageSource;
+	
 	private String nome; 
 	private String cpf;
 	private String email;
@@ -30,7 +39,8 @@ public class ClientDTO {
 	}
 
 	public String getEmail() {
-		return email;
+		return email = messageSource.getMessage("default.returnDTO", 
+                null, Locale.ENGLISH);
 	}
 
 	public void setEmail(String email) {

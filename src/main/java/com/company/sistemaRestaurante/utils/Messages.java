@@ -1,4 +1,4 @@
-package com.company.sistemaRestaurante.Controller;
+package com.company.sistemaRestaurante.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

@@ -2,8 +2,10 @@ package com.company.sistemaRestaurante.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.company.sistemaRestaurante.DTO.ClientDTO;
 import com.company.sistemaRestaurante.DTO.ContaDTO;
 import com.company.sistemaRestaurante.service.ClientService;
+import com.company.sistemaRestaurante.utils.Messages;
 
 @Controller
 @RestController
@@ -23,7 +26,9 @@ public class ClientController {
 	
 	@Autowired
 	public ClientService clientService;
-	
+
+	@Autowired
+    private MessageSource messageSource;
 	
 	@GetMapping()
 	public List<ClientDTO> listClient(){
@@ -32,6 +37,16 @@ public class ClientController {
 		clientList = clientService.listarClientes();
 		
 		return clientList;
+	}
+	
+	
+	@GetMapping("/test")
+	public String test() {
+		ClientDTO clientDTO = new ClientDTO();
+		//clientDTO.getEmail();
+		return messageSource.getMessage("default.returnDTO", 
+                null, Locale.US);
+		//return messeges.get("default.info");
 	}
 	
 	
