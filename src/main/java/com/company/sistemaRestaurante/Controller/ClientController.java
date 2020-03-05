@@ -9,7 +9,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.company.sistemaRestaurante.DTO.ClientDTO;
 import com.company.sistemaRestaurante.DTO.ContaDTO;
 import com.company.sistemaRestaurante.service.ClientService;
-import com.company.sistemaRestaurante.utils.Messages;
 
 @Controller
 @RestController
@@ -41,15 +39,33 @@ public class ClientController {
 	
 	
 	@GetMapping("/test")
-	public String test() {
+	public String test() throws IllegalAccessException {
 		ClientDTO clientDTO = new ClientDTO();
-		//clientDTO.getEmail();
-		return messageSource.getMessage("default.returnDTO", 
+//		clientDTO.setConta(new ContaDTO());
+//		clientDTO.setCpf("111");
+//		clientDTO.setEmail("@#mail");
+//		clientDTO.setNome("Murilo");
+//		clientDTO.setTelefone("1011445");
+
+		clientDTO.setConta(new ContaDTO());
+		clientDTO.setCpf("a");
+		clientDTO.setEmail("b");
+		clientDTO.setNome("c");
+		clientDTO.setTelefone("d");
+		
+//		if(isNull(clientDTO)) {
+//			clientDTO.setCpf("10");
+//		}
+		
+		boolean checkEmpty = clientDTO.checkIsEmpty();
+		
+		boolean checkNull  = clientDTO.checkNull();
+		
+		return clientDTO.getCpf() + " " + messageSource.getMessage("default.returnDTO", 
                 null, Locale.US);
 		//return messeges.get("default.info");
 	}
-	
-	
+
 	@PostMapping()
 	public ClientDTO addClient(@RequestBody ClientDTO client){
 		

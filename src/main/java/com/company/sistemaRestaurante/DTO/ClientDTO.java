@@ -1,5 +1,6 @@
 package com.company.sistemaRestaurante.DTO;
 
+import java.lang.reflect.Field;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,8 @@ import org.springframework.context.MessageSource;
 
 
 public class ClientDTO {
-
-	@Autowired
-    private MessageSource messageSource;
 	
-	private String nome; 
+	private String nome;  
 	private String cpf;
 	private String email;
 	private String telefone;
@@ -39,8 +37,7 @@ public class ClientDTO {
 	}
 
 	public String getEmail() {
-		return email = messageSource.getMessage("default.returnDTO", 
-                null, Locale.ENGLISH);
+		return email;
 	}
 
 	public void setEmail(String email) {
@@ -63,4 +60,18 @@ public class ClientDTO {
 		this.conta = conta;
 	}
 	
+	
+	public boolean checkNull() throws IllegalAccessException {
+	    for (Field f : getClass().getDeclaredFields())
+	        if (f.get(this) != null)
+	            return false;
+	    return true;            
+	}
+
+	public boolean checkIsEmpty() throws IllegalAccessException{
+		for (Field f : getClass().getDeclaredFields())
+	        if (!f.get(this).toString().isEmpty())
+	            return false;
+	    return true;      
+	}
 }
